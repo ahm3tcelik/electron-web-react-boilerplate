@@ -5,6 +5,7 @@
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
@@ -75,10 +76,10 @@ const configuration: webpack.Configuration = {
       },
     ],
   },
-  
+
   plugins: [
     new webpack.HotModuleReplacementPlugin({
-      multiStep: true
+      multiStep: true,
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
@@ -96,11 +97,13 @@ const configuration: webpack.Configuration = {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
     }),
 
+    new Dotenv({ systemvars: true, path: webpackPaths.envPathDev }),
+
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: true,
     }),
 
     new ReactRefreshWebpackPlugin(),
@@ -117,7 +120,7 @@ const configuration: webpack.Configuration = {
       isBrowser: true,
       env: process.env.NODE_ENV,
       isDevelopment: process.env.NODE_ENV !== 'production',
-    })
+    }),
   ],
 
   node: {
@@ -141,17 +144,17 @@ const configuration: webpack.Configuration = {
         '../../src/**/*.js',
         '../../src/**/*.jsx',
       ],
-       options: {
+      options: {
         aggregateTimeout: 300,
         ignored: /node_modules/,
-        poll: 100
-      }
+        poll: 100,
+      },
     },
     historyApiFallback: {
       verbose: true,
-      disableDotRule: undefined
+      disableDotRule: undefined,
     },
-  }
+  },
 };
 
 // Override the externals listing for web.

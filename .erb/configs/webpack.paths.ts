@@ -6,6 +6,9 @@ const dllPath = path.join(__dirname, '../dll');
 
 const webServerPath = path.join(rootPath, 'web-server');
 
+const envPathDev = path.join(rootPath, '.env.dev');
+const envPathProd = path.join(rootPath, '.env');
+
 const srcPath = path.join(rootPath, 'src');
 const srcMainPath = path.join(srcPath, 'main');
 const srcRendererPath = path.join(srcPath, 'renderer');
@@ -39,4 +42,6 @@ export default {
   distRendererPath,
   distWebPath,
   buildPath,
+  envPathDev,
+  envPathProd,
 };

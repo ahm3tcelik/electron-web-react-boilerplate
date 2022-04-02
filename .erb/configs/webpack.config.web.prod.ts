@@ -2,6 +2,7 @@
  * Build config for web prod
  */
 
+import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
@@ -24,7 +25,7 @@ const devtoolsConfig =
     : {};
 
 const configuration: webpack.Configuration = {
-   ...devtoolsConfig,
+  ...devtoolsConfig,
 
   mode: 'production',
 
@@ -76,7 +77,7 @@ const configuration: webpack.Configuration = {
       },
     ],
   },
-  
+
   plugins: [
     /**
      * Create global constants which can be configured at compile time.
@@ -91,6 +92,8 @@ const configuration: webpack.Configuration = {
       NODE_ENV: 'production',
       DEBUG_PROD: false,
     }),
+
+    new Dotenv({ systemvars: true, path: webpackPaths.envPathProd }),
 
     new MiniCssExtractPlugin({
       filename: 'style.css',
@@ -112,7 +115,7 @@ const configuration: webpack.Configuration = {
       isBrowser: true,
       env: process.env.NODE_ENV,
       isDevelopment: process.env.NODE_ENV !== 'production',
-    })
+    }),
   ],
 
   node: {
